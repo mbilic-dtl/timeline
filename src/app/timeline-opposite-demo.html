@@ -1,0 +1,55 @@
+<div class="card">
+  <p-timeline [value]="events" layout="horizontal" align="top">
+    <ng-template pTemplate="content" let-event>
+      <small class="p-text-secondary">{{ event.hour }}</small>
+    </ng-template>
+    <ng-template pTemplate="opposite" let-event>
+      <div #downtime class="event">
+        <div
+          *ngFor="let downtime of event.downtime; index as in"
+          class="downtime"
+          [ngStyle]="{'left': setPosition(downtime), 'max-width': '100%', 'width': '100%'}"
+        >
+          <div
+            class="downtime-summary grid"
+            [ngStyle]="{'width': 'auto','border-color': downtime.color, 'background-color': setColor(downtime.color)}"
+          >
+            <div class="grid col-12">
+              <small class="w-full"> {{ 'Mode' }} </small>
+              <span class="w-full"> {{ downtime.grouping }} </span>
+            </div>
+            <div *ngIf="downtime.description" class="grid col-12">
+              <small class="w-full"> {{ 'Description' }} </small>
+              <span class="w-full"> {{ downtime.description }} </span>
+            </div>
+            <div class="grid col-6">
+              <small class="w-full"> {{ 'Time' }} </small>
+              <span class="w-full"> {{ downtime.startTime }} </span>
+            </div>
+            <div class="grid col-6">
+              <small class="w-full"> {{ 'Duration' }} </small>
+              <span class="w-full"> {{ downtime.duration + 'min' }} </span>
+            </div>
+            <div *ngIf="downtime.comment?.length" class="grid col-12">
+              <small class="w-full"> {{ 'Comment' }} </small>
+              <span class="w-full"> {{ downtime.comment }} </span>
+            </div>
+          </div>
+
+          <div
+            class="downtime-duration"
+            [ngStyle]="{'width': setMarkerWidth(downtime.duration, event.id), 'margin-left': '3px', 'background-color': '#ffffff' }"
+          >
+            <div
+              class="duration-marker"
+              [ngStyle]="{'background-color': setColor(downtime.color), 'border-color': downtime.color}"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="marker" let-event>
+      <span class="marker">|</span>
+    </ng-template>
+  </p-timeline>
+</div>
