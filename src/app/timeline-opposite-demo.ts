@@ -1,12 +1,8 @@
 import {
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
   QueryList,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { ImportsModule } from './imports';
